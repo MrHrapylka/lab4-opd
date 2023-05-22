@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Вычисление объема фигур</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: inline-block;
+            width: 120px;
+        }
+
+        input[type="text"],
+        input[type="number"] {
+            width: 200px;
+            padding: 5px;
+            margin-bottom: 10px;
+        }
+
+        input[type="submit"] {
+            padding: 5px 10px;
+            background-color: #4CAF50;
+            margin-left: 260px;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .result {
+            font-weight: bold;
+        }
+
+        .footer {
+            margin-top: 70px;
+            text-align: center;
+        }
+        .footer2 {
+            margin-top: 2px;
+            text-align: center;
+        }
+        .footer3 {
+            margin-top: 3px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Вычисление объема фигур</h1>
+        <form action="/calculate" method="post">
+            <label for="shape">Фигура:</label>
+            <select id="shape" name="shape">
+                <option value="cube">Куб</option>
+                <option value="sphere">Сфера</option>
+                <option value="cylinder">Цилиндр</option>
+                <option value="cone">Конус</option>
+                <option value="pyramid">Пирамида</option>
+            </select>
+            <br>
+            <label for="precision">Точность:</label>
+            <input type="number" id="precision" name="precision" min="0" value="2">
+            <br>
+            <div id="cube-params" class="shape-params">
+                <label for="side">Сторона:</label>
+                <input type="text" id="side" name="side">
+            </div>
+            <div id="sphere-params" class="shape-params" style="display: none;">
+                <label for="radius">Радиус:</label>
+                <input type="text" id="radius" name="radius">
+            </div>
+            <div id="cylinder-params" class="shape-params" style="display: none;">
+                <label for="radius">Радиус:</label>
+                <input type="text" id="cylinder-radius" name="radius">
+                <br>
+                <label for="height">Высота:</label>
+                <input type="text" id="cylinder-height" name="height">
+            </div>
+            <div id="cone-params" class="shape-params" style="display: none;">
+                <label for="radius">Радиус:</label>
+                <input type="text" id="cone-radius" name="radius">
+                <br>
+                <label for="height">Высота:</label>
+                <input type="text" id="cone-height" name="height">
+            </div>
+            <div id="pyramid-params" class="shape-params" style="display: none;">
+                <label for="base_length">Длина основания:</label>
+                <input type="text" id="pyramid-base-length" name="base_length">
+                <br>
+                <label for="base_width">Ширина основания:</label>
+                <input type="text" id="pyramid-base-width" name="base_width">
+                <br>
+                <label for="height">Высота:</label>
+                <input type="text" id="pyramid-height" name="height">
+            </div>
+            <input type="submit" value="Вычислить объем">
+        </form>
+        {% if volume is not none %}
+            <div class="result">Объем: {{ volume }}</div>
+        {% endif %}
+    </div>
+    <div class="footer">Автор сайта: Успанов А.М.</div>
+    <div class="footer2">Студент группы ИВТ-223</div>
+    <div class="footer3">Вариант: 2</div>
+    <script>
+        var shapeSelect = document.getElementById('shape');
+        var shapeParams = document.getElementsByClassName('shape-params');
+
+        function showShapeParams() {
+            for (var i = 0; i < shapeParams.length; i++) {
+                shapeParams[i].style.display = 'none';
+            }
+
+            var selectedShape = shapeSelect.value;
+            var shapeParamsElement = document.getElementById(selectedShape + '-params');
+
+            if (shapeParamsElement) {
+                shapeParamsElement.style.display = 'block';
+            }
+        }
+
+        shapeSelect.addEventListener('change', showShapeParams);
+        showShapeParams();
+    </script>
+</body>
+</html>
